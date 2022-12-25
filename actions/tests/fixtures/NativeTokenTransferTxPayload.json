@@ -1,0 +1,20 @@
+{
+  "network": "1",
+  "blockHash": "0xb6d8427f6542ce7a872397907d0a03e6345c2dd677fe1c9b57ec6ae5e3706a0b",
+  "blockNumber": 16252722,
+  "hash": "0xda084ba6ffc3ff1e412d4d9272b6f8465a4291bbd1776965bbe1551cf18ab1ec",
+  "transactionHash": "0xda084ba6ffc3ff1e412d4d9272b6f8465a4291bbd1776965bbe1551cf18ab1ec",
+  "from": "0xCBD6832Ebc203e49E2B771897067fce3c58575ac",
+  "to": "0x3Ecd0Eb2cceF771920c9C9e0821a5473272F44C0",
+  "logs": [],
+  "input": "0x",
+  "value": "0xed5d0bdc271e080",
+  "nonce": "0x33b9e",
+  "gas": "0x15f90",
+  "gasUsed": "0x5208",
+  "cumulativeGasUsed": "0x6b33eb",
+  "gasPrice": "0x29072f5a2",
+  "gasTipCap": "0x942e0ec",
+  "gasFeeCap": "0x52edb93da",
+  "alertId": null
+}

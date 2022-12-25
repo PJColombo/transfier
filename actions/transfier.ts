@@ -12,7 +12,7 @@ const isTransferTx = (tx: TransactionEvent): boolean => {
   return !!getSenderTransferEvents(tx).length;
 };
 
-export const transferNotifierFn: ActionFn = async (context, event) => {
+export const transfierFn: ActionFn = async (context, event) => {
   const txEvent = event as TransactionEvent;
 
   if (!isTransferTx(txEvent)) {

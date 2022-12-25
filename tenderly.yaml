@@ -4,19 +4,18 @@ actions:
     runtime: v2
     sources: actions
     specs:
-      transferNotifier:
-        description: Notifies when one of a set of defined accounts sends a transfer tx of a token or native token.
-        function: transfer:transferNotifierFn
+      transfier:
+        description: An ERC20 token transfer telegram notifier
+        function: transfier:transfierFn
         trigger:
           type: transaction
           transaction:
             filters:
-            - network: 5
-              from: 0xc4E98dF9fe32380c43f89b326dA39B7681Ea7B2F
-            - network: 100
-              from: 0xc4E98dF9fe32380c43f89b326dA39B7681Ea7B2F
-            - network: 137
-              from: 0xc4E98dF9fe32380c43f89b326dA39B7681Ea7B2F
+              - network: 5
+                from: 0xc4E98dF9fe32380c43f89b326dA39B7681Ea7B2F
+              - network: 100
+                from: 0xc4E98dF9fe32380c43f89b326dA39B7681Ea7B2F
+              - network: 137
+                from: 0xc4E98dF9fe32380c43f89b326dA39B7681Ea7B2F
             status:
-            - mined
-        
+              - mined

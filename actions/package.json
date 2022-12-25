@@ -1,8 +1,8 @@
 {
-  "name": "tenderly-web3-actions",
+  "name": "transfier",
   "private": true,
   "version": "0.0.1",
-  "description": "Tenderly Web3 actions",
+  "description": "A Tenderly web3 action that notifies of any erc20 transfer",
   "scripts": {
     "anvil": "anvil --fork-url $ANVIL_FORK_URL --fork-block-number $ANVIL_BLOCK_NUMBER",
     "build": "tsc",

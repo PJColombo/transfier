@@ -9,7 +9,7 @@ import {
   it,
   vi,
 } from "vitest";
-import { transferNotifierFn } from "../transfer";
+import { transfierFn } from "../transfier";
 import unknownNetworkErc20Tx from "./fixtures/UnknownNetworkTxPayload.json";
 import nativeTokenTx from "./fixtures/NativeTokenTransferTxPayload.json";
 import erc20TokenTx from "./fixtures/ERC20TransferTxPayload.json";
@@ -76,7 +76,7 @@ describe("Transfier", () => {
 
     setRPCEndpointSecret(runtime, nativeTokenTransferEvent.network);
 
-    await runtime.execute(transferNotifierFn, nativeTokenTransferEvent);
+    await runtime.execute(transfierFn, nativeTokenTransferEvent);
 
     const { from, network: networkId, value } = nativeTokenTransferEvent;
     const network = NETWORKS[networkId];
@@ -109,7 +109,7 @@ describe("Transfier", () => {
 
     setRPCEndpointSecret(runtime, erc20TokenTransferEvent.network);
 
-    await runtime.execute(transferNotifierFn, erc20TokenTransferEvent);
+    await runtime.execute(transfierFn, erc20TokenTransferEvent);
 
     const { from, network: networkId, to } = erc20TokenTransferEvent;
     const network = NETWORKS[networkId];
@@ -157,7 +157,7 @@ describe("Transfier", () => {
     const erc20TransferEvent = unknownNetworkErc20Tx as TestTransactionEvent;
 
     await expect(() =>
-      runtime.execute(transferNotifierFn, erc20TransferEvent)
+      runtime.execute(transfierFn, erc20TransferEvent)
     ).rejects.toThrowErrorMatchingInlineSnapshot('"Network 4 not supported"');
   });
 });

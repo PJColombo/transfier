@@ -1,72 +1,48 @@
 import type { TransactionEvent } from "@tenderly/actions";
+import { providers } from "ethers";
 import TelegramBot from "node-telegram-bot-api";
-import TokenAmount from "token-amount";
-import type { Network, TokenData, TxMessage } from "./types";
-import { shortenAddress } from "./utils/web3";
+import type { Network, TxTransfersInfo, FormatOpts } from "./types";
+import { formatAmount, getTxTransfersInfo, shortenAddress } from "./utils";
 
-const getTokenData = (
-  tx: TransactionEvent,
-  network: Network
-): TokenData | undefined => {
-  if (tx.value) {
-    const networkData = network;
+export const buildTelegramMessage = (txInfo: TxTransfersInfo): string => {
+  const { from, transfers, receiptUrl, network } = txInfo;
+  const formattedFrom = shortenAddress(from);
+  const transferMessages = transfers.map(
+    ({ amount, currentBalance, token }) => {
+      const formatOpts: FormatOpts = {
+        digits: 3,
+        commify: true,
+        tokenSymbol: token.symbol,
+      };
+      const formattedAmount = formatAmount(amount, token.decimals, formatOpts);
+      const formattedBalance = formatAmount(
+        currentBalance,
+        token.decimals,
+        formatOpts
+      );
 
-    return networkData.nativeToken;
-  }
+      return `  - ${formattedAmount}. The current balance is: ${formattedBalance}`;
+    }
+  );
 
-  return;
+  return `Hey, the account ${formattedFrom} [transferred](${receiptUrl}) the following tokens on ${
+    network.name
+  }:
+    ${transferMessages.join("\n")}
+  `;
 };
 
-const buildTxReceiptUrl = (tx: TransactionEvent, network: Network): string => {
-  switch (tx.network) {
-    case "1":
-    case "5":
-    case "100":
-    case "137":
-    default:
-      return `${network.explorerBaseUrl}/tx/${tx.hash}`;
-  }
-};
-
-const buildTxMessage = (tx: TransactionEvent, network: Network): TxMessage => {
-  const { symbol = "UNKNOWN", decimals = 0 } = getTokenData(tx, network) ?? {};
-
-  return {
-    from: tx.from,
-    to: tx.to ?? "",
-    amount: new TokenAmount(tx.value, decimals, { symbol }),
-    tokenSymbol: symbol,
-    currentBalance: new TokenAmount(0, 18),
-    receiptUrl: buildTxReceiptUrl(tx, network),
-  };
-};
-
-export const sendMessage = (
+export const sendTelegramMessage = async (
   bot: TelegramBot,
   chatId: TelegramBot.ChatId,
   tx: TransactionEvent,
+  provider: providers.Provider,
   network: Network
 ): Promise<TelegramBot.Message> => {
-  const { from, receiptUrl, amount, currentBalance } = buildTxMessage(
-    tx,
-    network
-  );
-  const formattedAmount = amount.format({ commify: true, digits: 3 });
-  const formattedCurrentBalance = currentBalance.format({
-    commify: true,
-    digits: 3,
-  });
+  const txInfo = await getTxTransfersInfo(tx, provider, network);
+  const message = buildTelegramMessage(txInfo);
 
-  return bot.sendMessage(
-    chatId,
-    `Hey, the account ${shortenAddress(
-      from
-    )} just [transferred](${receiptUrl}) ${formattedAmount} on ${
-      network.name
-    } (id: ${tx.network}). The new token balance is: ${formattedCurrentBalance}
-    `,
-    {
-      parse_mode: "Markdown",
-    }
-  );
+  return bot.sendMessage(chatId, message, {
+    parse_mode: "Markdown",
+  });
 };

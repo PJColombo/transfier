@@ -1,7 +1,8 @@
-import { Network } from "./types";
+import { Network } from "../types";
 
 export const NETWORKS: Record<string, Network> = {
   "1": {
+    id: 1,
     name: "Mainnet",
     nativeToken: {
       name: "ether",
@@ -11,6 +12,7 @@ export const NETWORKS: Record<string, Network> = {
     explorerBaseUrl: "https://etherscan.io/",
   },
   "5": {
+    id: 5,
     name: "Goerli",
     nativeToken: {
       name: "Goerli ether",
@@ -20,6 +22,7 @@ export const NETWORKS: Record<string, Network> = {
     explorerBaseUrl: "https://goerli.etherscan.io/",
   },
   "100": {
+    id: 100,
     name: "Gnosis",
     nativeToken: {
       name: "xDAI",
@@ -29,6 +32,7 @@ export const NETWORKS: Record<string, Network> = {
     explorerBaseUrl: "https://blockscout.com/xdai/mainnet/",
   },
   "137": {
+    id: 137,
     name: "Polygon",
     nativeToken: {
       name: "Matic",

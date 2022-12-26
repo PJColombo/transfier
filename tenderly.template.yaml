@@ -13,8 +13,6 @@ actions:
             {{#accounts}}
               - network: 1
                 from: {{.}} 
-              - network: 5
-                from: {{.}} 
               - network: 100 
                 from: {{.}}
               - network: 137

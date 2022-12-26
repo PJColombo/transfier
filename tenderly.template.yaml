@@ -1,4 +1,3 @@
-account_id: ""
 actions:
   pjcolombo/osmotic-funding:
     runtime: v2
@@ -11,11 +10,15 @@ actions:
           type: transaction
           transaction:
             filters:
+            {{#accounts}}
+              - network: 1
+                from: {{.}} 
               - network: 5
-                from: 0xc4E98dF9fe32380c43f89b326dA39B7681Ea7B2F
-              - network: 100
-                from: 0xc4E98dF9fe32380c43f89b326dA39B7681Ea7B2F
+                from: {{.}} 
+              - network: 100 
+                from: {{.}}
               - network: 137
-                from: 0xc4E98dF9fe32380c43f89b326dA39B7681Ea7B2F
+                from: {{.}}
+            {{/accounts}}
             status:
               - mined

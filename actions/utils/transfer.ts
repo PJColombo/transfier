@@ -18,7 +18,7 @@ export const getTxTokenTransfers = async (
 ): Promise<TokenTransferInfo[]> => {
   let transfers: TokenTransferInfo[] = [];
 
-  if (tx.value && tx.value !== "0x0") {
+  if (tx.value && tx.value !== "0x0" && tx.value !== "0x") {
     const token = network.nativeToken;
     const balance = await provider.getBalance(tx.from);
 

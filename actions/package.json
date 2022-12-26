@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "description": "A Tenderly web3 action that notifies of any erc20 transfer",
   "scripts": {
-    "build-action-config": "mustache ../accounts.json ../tenderly.template.yaml ../tenderly.yaml",
+    "build-config": "mustache ../accounts.json ../tenderly.template.yaml ../tenderly.yaml",
     "anvil": "anvil --fork-url $ANVIL_FORK_URL --fork-block-number $ANVIL_BLOCK_NUMBER",
     "build": "tsc",
     "test": "vitest",

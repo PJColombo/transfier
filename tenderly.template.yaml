@@ -12,7 +12,7 @@ actions:
             filters:
             {{#accounts}}
               - network: 1
-                from: {{.}} 
+                from: {{.}}
               - network: 100 
                 from: {{.}}
               - network: 137
